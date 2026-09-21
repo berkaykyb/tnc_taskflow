@@ -1,0 +1,502 @@
+[
+  {
+    "id": 1,
+    "title": "Design login page",
+    "description": "Create the user interface for the login page.",
+    "status": "done",
+    "priority": "high",
+    "assignee": "Berkay",
+    "createdAt": "2026-08-20T09:30:00.000Z",
+    "dueDate": "2026-08-23T18:00:00.000Z"
+  },
+  {
+    "id": 2,
+    "title": "Create authentication API",
+    "description": "Develop login and authentication endpoints.",
+    "status": "done",
+    "priority": "high",
+    "assignee": "Ahmet",
+    "createdAt": "2026-08-21T10:15:00.000Z",
+    "dueDate": "2026-08-25T18:00:00.000Z"
+  },
+  {
+    "id": 3,
+    "title": "Add JWT authentication",
+    "description": "Implement JWT token generation and validation.",
+    "status": "in-progress",
+    "priority": "high",
+    "assignee": "Berkay",
+    "createdAt": "2026-08-22T11:00:00.000Z",
+    "dueDate": "2026-09-23T18:00:00.000Z"
+  },
+  {
+    "id": 4,
+    "title": "Create user profile page",
+    "description": "Build a page where users can view their account details.",
+    "status": "todo",
+    "priority": "medium",
+    "assignee": "Mehmet",
+    "createdAt": "2026-08-24T13:20:00.000Z",
+    "dueDate": "2026-09-28T18:00:00.000Z"
+  },
+  {
+    "id": 5,
+    "title": "Fix navbar mobile layout",
+    "description": "Resolve responsive design problems in the navigation bar.",
+    "status": "todo",
+    "priority": "medium",
+    "assignee": "Zeynep",
+    "createdAt": "2026-08-25T15:45:00.000Z",
+    "dueDate": null
+  },
+  {
+    "id": 6,
+    "title": "Create product entity",
+    "description": "Define the product database entity and relationships.",
+    "status": "done",
+    "priority": "high",
+    "assignee": "Berkay",
+    "createdAt": "2026-08-26T09:10:00.000Z",
+    "dueDate": "2026-08-27T18:00:00.000Z"
+  },
+  {
+    "id": 7,
+    "title": "Implement product repository",
+    "description": "Create repository methods for product operations.",
+    "status": "done",
+    "priority": "medium",
+    "assignee": "Berkay",
+    "createdAt": "2026-08-27T12:30:00.000Z",
+    "dueDate": "2026-08-29T18:00:00.000Z"
+  },
+  {
+    "id": 8,
+    "title": "Add product search",
+    "description": "Allow users to search products by name.",
+    "status": "in-progress",
+    "priority": "medium",
+    "assignee": "Ece",
+    "createdAt": "2026-08-28T14:00:00.000Z",
+    "dueDate": "2026-09-24T18:00:00.000Z"
+  },
+  {
+    "id": 9,
+    "title": "Create category filters",
+    "description": "Add filtering support for product categories.",
+    "status": "todo",
+    "priority": "medium",
+    "assignee": "Ece",
+    "createdAt": "2026-08-29T16:20:00.000Z",
+    "dueDate": null
+  },
+  {
+    "id": 10,
+    "title": "Optimize database queries",
+    "description": "Improve slow queries and reduce unnecessary database calls.",
+    "status": "todo",
+    "priority": "high",
+    "assignee": "Ahmet",
+    "createdAt": "2026-08-30T11:40:00.000Z",
+    "dueDate": "2026-09-29T18:00:00.000Z"
+  },
+  {
+    "id": 11,
+    "title": "Create dashboard layout",
+    "description": "Build the main dashboard structure.",
+    "status": "done",
+    "priority": "medium",
+    "assignee": "Zeynep",
+    "createdAt": "2026-09-01T09:00:00.000Z",
+    "dueDate": "2026-09-03T18:00:00.000Z"
+  },
+  {
+    "id": 12,
+    "title": "Add dashboard statistics",
+    "description": "Display task and user statistics on the dashboard.",
+    "status": "in-progress",
+    "priority": "medium",
+    "assignee": "Mehmet",
+    "createdAt": "2026-09-02T10:20:00.000Z",
+    "dueDate": "2026-09-25T18:00:00.000Z"
+  },
+  {
+    "id": 13,
+    "title": "Create task service",
+    "description": "Implement business logic for task operations.",
+    "status": "done",
+    "priority": "high",
+    "assignee": "Berkay",
+    "createdAt": "2026-09-03T13:10:00.000Z",
+    "dueDate": "2026-09-05T18:00:00.000Z"
+  },
+  {
+    "id": 14,
+    "title": "Create task controller",
+    "description": "Expose task operations through REST API endpoints.",
+    "status": "done",
+    "priority": "high",
+    "assignee": "Berkay",
+    "createdAt": "2026-09-04T14:25:00.000Z",
+    "dueDate": "2026-09-06T18:00:00.000Z"
+  },
+  {
+    "id": 15,
+    "title": "Add task validation",
+    "description": "Validate task creation and update requests.",
+    "status": "in-progress",
+    "priority": "high",
+    "assignee": "Ahmet",
+    "createdAt": "2026-09-05T11:50:00.000Z",
+    "dueDate": null
+  },
+  {
+    "id": 16,
+    "title": "Create new task modal",
+    "description": "Build a modal form for creating new tasks.",
+    "status": "todo",
+    "priority": "medium",
+    "assignee": "Zeynep",
+    "createdAt": "2026-09-06T15:30:00.000Z",
+    "dueDate": "2026-09-27T18:00:00.000Z"
+  },
+  {
+    "id": 17,
+    "title": "Add task edit feature",
+    "description": "Allow users to update existing task information.",
+    "status": "todo",
+    "priority": "medium",
+    "assignee": "Mehmet",
+    "createdAt": "2026-09-07T10:10:00.000Z",
+    "dueDate": "2026-09-30T18:00:00.000Z"
+  },
+  {
+    "id": 18,
+    "title": "Add task delete feature",
+    "description": "Allow authorized users to delete tasks.",
+    "status": "todo",
+    "priority": "low",
+    "assignee": "Mehmet",
+    "createdAt": "2026-09-07T13:45:00.000Z",
+    "dueDate": null
+  },
+  {
+    "id": 19,
+    "title": "Create Kanban board",
+    "description": "Display tasks in columns based on their status.",
+    "status": "in-progress",
+    "priority": "high",
+    "assignee": "Berkay",
+    "createdAt": "2026-09-08T09:30:00.000Z",
+    "dueDate": "2026-09-24T18:00:00.000Z"
+  },
+  {
+    "id": 20,
+    "title": "Add drag and drop",
+    "description": "Allow users to move tasks between Kanban columns.",
+    "status": "todo",
+    "priority": "high",
+    "assignee": "Berkay",
+    "createdAt": "2026-09-08T14:20:00.000Z",
+    "dueDate": "2026-09-28T18:00:00.000Z"
+  },
+  {
+    "id": 21,
+    "title": "Add priority badges",
+    "description": "Display different badges based on task priority.",
+    "status": "done",
+    "priority": "low",
+    "assignee": "Ece",
+    "createdAt": "2026-09-09T08:50:00.000Z",
+    "dueDate": "2026-09-10T18:00:00.000Z"
+  },
+  {
+    "id": 22,
+    "title": "Create assignee filter",
+    "description": "Filter tasks according to the selected assignee.",
+    "status": "todo",
+    "priority": "medium",
+    "assignee": "Ece",
+    "createdAt": "2026-09-09T12:15:00.000Z",
+    "dueDate": null
+  },
+  {
+    "id": 23,
+    "title": "Add status filter",
+    "description": "Allow users to filter tasks by status.",
+    "status": "in-progress",
+    "priority": "medium",
+    "assignee": "Zeynep",
+    "createdAt": "2026-09-10T10:00:00.000Z",
+    "dueDate": "2026-09-23T18:00:00.000Z"
+  },
+  {
+    "id": 24,
+    "title": "Add priority filter",
+    "description": "Allow users to filter tasks by priority level.",
+    "status": "todo",
+    "priority": "low",
+    "assignee": "Zeynep",
+    "createdAt": "2026-09-10T11:40:00.000Z",
+    "dueDate": null
+  },
+  {
+    "id": 25,
+    "title": "Create notification service",
+    "description": "Implement a service for sending task notifications.",
+    "status": "todo",
+    "priority": "high",
+    "assignee": "Ahmet",
+    "createdAt": "2026-09-11T09:20:00.000Z",
+    "dueDate": "2026-10-02T18:00:00.000Z"
+  },
+  {
+    "id": 26,
+    "title": "Send due date reminders",
+    "description": "Notify users when task deadlines are approaching.",
+    "status": "todo",
+    "priority": "medium",
+    "assignee": "Ahmet",
+    "createdAt": "2026-09-11T14:10:00.000Z",
+    "dueDate": "2026-10-05T18:00:00.000Z"
+  },
+  {
+    "id": 27,
+    "title": "Create activity logs",
+    "description": "Record important task actions in the system.",
+    "status": "in-progress",
+    "priority": "medium",
+    "assignee": "Berkay",
+    "createdAt": "2026-09-12T10:30:00.000Z",
+    "dueDate": null
+  },
+  {
+    "id": 28,
+    "title": "Create error middleware",
+    "description": "Handle API exceptions with centralized middleware.",
+    "status": "done",
+    "priority": "high",
+    "assignee": "Berkay",
+    "createdAt": "2026-09-12T16:00:00.000Z",
+    "dueDate": "2026-09-14T18:00:00.000Z"
+  },
+  {
+    "id": 29,
+    "title": "Add API rate limiting",
+    "description": "Prevent excessive requests to API endpoints.",
+    "status": "todo",
+    "priority": "high",
+    "assignee": "Ahmet",
+    "createdAt": "2026-09-13T11:20:00.000Z",
+    "dueDate": "2026-10-01T18:00:00.000Z"
+  },
+  {
+    "id": 30,
+    "title": "Configure CORS",
+    "description": "Configure allowed origins for frontend requests.",
+    "status": "done",
+    "priority": "medium",
+    "assignee": "Ahmet",
+    "createdAt": "2026-09-13T14:00:00.000Z",
+    "dueDate": null
+  },
+  {
+    "id": 31,
+    "title": "Create user roles",
+    "description": "Add admin, manager and member roles.",
+    "status": "done",
+    "priority": "high",
+    "assignee": "Berkay",
+    "createdAt": "2026-09-14T09:45:00.000Z",
+    "dueDate": "2026-09-16T18:00:00.000Z"
+  },
+  {
+    "id": 32,
+    "title": "Implement role authorization",
+    "description": "Restrict API endpoints according to user roles.",
+    "status": "in-progress",
+    "priority": "high",
+    "assignee": "Berkay",
+    "createdAt": "2026-09-14T13:25:00.000Z",
+    "dueDate": "2026-09-25T18:00:00.000Z"
+  },
+  {
+    "id": 33,
+    "title": "Create project settings page",
+    "description": "Allow users to update project settings.",
+    "status": "todo",
+    "priority": "low",
+    "assignee": "Ece",
+    "createdAt": "2026-09-15T10:00:00.000Z",
+    "dueDate": null
+  },
+  {
+    "id": 34,
+    "title": "Add dark mode",
+    "description": "Implement light and dark theme support.",
+    "status": "todo",
+    "priority": "low",
+    "assignee": "Zeynep",
+    "createdAt": "2026-09-15T16:30:00.000Z",
+    "dueDate": null
+  },
+  {
+    "id": 35,
+    "title": "Fix task card overflow",
+    "description": "Fix long task descriptions overflowing their cards.",
+    "status": "done",
+    "priority": "low",
+    "assignee": "Zeynep",
+    "createdAt": "2026-09-16T09:15:00.000Z",
+    "dueDate": "2026-09-17T18:00:00.000Z"
+  },
+  {
+    "id": 36,
+    "title": "Add pagination",
+    "description": "Implement pagination for large task collections.",
+    "status": "in-progress",
+    "priority": "medium",
+    "assignee": "Mehmet",
+    "createdAt": "2026-09-16T11:35:00.000Z",
+    "dueDate": "2026-09-26T18:00:00.000Z"
+  },
+  {
+    "id": 37,
+    "title": "Create task comments",
+    "description": "Allow users to leave comments on tasks.",
+    "status": "todo",
+    "priority": "medium",
+    "assignee": "Mehmet",
+    "createdAt": "2026-09-17T10:50:00.000Z",
+    "dueDate": "2026-10-03T18:00:00.000Z"
+  },
+  {
+    "id": 38,
+    "title": "Add file attachments",
+    "description": "Allow users to attach files to tasks.",
+    "status": "todo",
+    "priority": "medium",
+    "assignee": "Ahmet",
+    "createdAt": "2026-09-17T14:20:00.000Z",
+    "dueDate": null
+  },
+  {
+    "id": 39,
+    "title": "Create team page",
+    "description": "Display all project members and their roles.",
+    "status": "in-progress",
+    "priority": "low",
+    "assignee": "Ece",
+    "createdAt": "2026-09-18T09:40:00.000Z",
+    "dueDate": "2026-09-29T18:00:00.000Z"
+  },
+  {
+    "id": 40,
+    "title": "Add member invitation",
+    "description": "Allow administrators to invite new project members.",
+    "status": "todo",
+    "priority": "medium",
+    "assignee": "Ece",
+    "createdAt": "2026-09-18T13:10:00.000Z",
+    "dueDate": "2026-10-04T18:00:00.000Z"
+  },
+  {
+    "id": 41,
+    "title": "Write API documentation",
+    "description": "Document all available REST API endpoints.",
+    "status": "in-progress",
+    "priority": "medium",
+    "assignee": "Berkay",
+    "createdAt": "2026-09-18T16:45:00.000Z",
+    "dueDate": "2026-09-30T18:00:00.000Z"
+  },
+  {
+    "id": 42,
+    "title": "Add Swagger configuration",
+    "description": "Configure Swagger for API testing and documentation.",
+    "status": "done",
+    "priority": "low",
+    "assignee": "Berkay",
+    "createdAt": "2026-09-19T09:00:00.000Z",
+    "dueDate": null
+  },
+  {
+    "id": 43,
+    "title": "Write unit tests",
+    "description": "Create unit tests for task service operations.",
+    "status": "todo",
+    "priority": "high",
+    "assignee": "Ahmet",
+    "createdAt": "2026-09-19T11:30:00.000Z",
+    "dueDate": "2026-10-01T18:00:00.000Z"
+  },
+  {
+    "id": 44,
+    "title": "Write integration tests",
+    "description": "Test API endpoints with database integration.",
+    "status": "todo",
+    "priority": "high",
+    "assignee": "Ahmet",
+    "createdAt": "2026-09-19T14:50:00.000Z",
+    "dueDate": "2026-10-06T18:00:00.000Z"
+  },
+  {
+    "id": 45,
+    "title": "Set up Docker environment",
+    "description": "Create Docker configuration for the application.",
+    "status": "done",
+    "priority": "medium",
+    "assignee": "Berkay",
+    "createdAt": "2026-09-20T09:20:00.000Z",
+    "dueDate": "2026-09-20T18:00:00.000Z"
+  },
+  {
+    "id": 46,
+    "title": "Configure PostgreSQL container",
+    "description": "Add PostgreSQL database service to Docker Compose.",
+    "status": "done",
+    "priority": "medium",
+    "assignee": "Berkay",
+    "createdAt": "2026-09-20T10:45:00.000Z",
+    "dueDate": null
+  },
+  {
+    "id": 47,
+    "title": "Prepare production environment",
+    "description": "Configure environment variables for production.",
+    "status": "in-progress",
+    "priority": "high",
+    "assignee": "Berkay",
+    "createdAt": "2026-09-20T13:30:00.000Z",
+    "dueDate": "2026-09-25T18:00:00.000Z"
+  },
+  {
+    "id": 48,
+    "title": "Deploy backend API",
+    "description": "Deploy the backend application to the production server.",
+    "status": "todo",
+    "priority": "high",
+    "assignee": "Berkay",
+    "createdAt": "2026-09-21T09:10:00.000Z",
+    "dueDate": "2026-09-27T18:00:00.000Z"
+  },
+  {
+    "id": 49,
+    "title": "Deploy frontend application",
+    "description": "Deploy the frontend application and connect it to the API.",
+    "status": "todo",
+    "priority": "high",
+    "assignee": "Zeynep",
+    "createdAt": "2026-09-21T12:00:00.000Z",
+    "dueDate": "2026-09-28T18:00:00.000Z"
+  },
+  {
+    "id": 50,
+    "title": "Production testing",
+    "description": "Test the complete application after deployment.",
+    "status": "todo",
+    "priority": "high",
+    "assignee": "Berkay",
+    "createdAt": "2026-09-21T17:30:00.000Z",
+    "dueDate": null
+  }
+]

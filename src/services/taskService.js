@@ -12,4 +12,11 @@ const getAllTasks = async () => {
   return await readTasks();
 };
 
-module.exports = { getAllTasks };
+const getTaskById = async (id) => {
+  const tasks = await readTasks();
+  const task = tasks.find((task) => task.id === id);
+
+  return task || null;
+};
+
+module.exports = { getAllTasks, getTaskById };

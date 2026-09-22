@@ -1,3 +1,4 @@
+const { param } = require("../app");
 const taskService = require("../services/taskService");
 
 const getAllTasks = async (req, res, next) => {
@@ -76,4 +77,25 @@ const updateTask = async (req, res, next) => {
   }
 };
 
-module.exports = { getAllTasks, getTaskById, createTask, updateTask };
+const deleteTask = async (req, res, next) => {
+  try {
+    const id = Number(req.params.id);
+    const deletedTask = await taskService.deleteTask(id);
+    if (!deletedTask) {
+      return res.status(404).json({
+        message: "Task not found!",
+      });
+    }
+    res.status(200).json(deletedTask);
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = {
+  getAllTasks,
+  getTaskById,
+  createTask,
+  updateTask,
+  deleteTask,
+};

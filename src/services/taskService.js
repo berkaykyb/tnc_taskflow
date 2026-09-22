@@ -1,4 +1,5 @@
 const fs = require("fs").promises;
+const { read } = require("fs");
 const path = require("path");
 
 const filePath = path.join(__dirname, "../data/tasks.json");
@@ -56,4 +57,22 @@ const updateTask = async (id, taskData) => {
   return updatedTask;
 };
 
-module.exports = { getAllTasks, getTaskById, createTask, updateTask };
+const deleteTask = async (id) => {
+  const tasks = await readTasks();
+  const index = tasks.findIndex((task) => task.id === id);
+  if (index === -1) {
+    return null;
+  }
+  const deletedTask = tasks[index];
+  tasks.splice(index, 1);
+  await writeTasks(tasks);
+  return deletedTask;
+};
+
+module.exports = {
+  getAllTasks,
+  getTaskById,
+  createTask,
+  updateTask,
+  deleteTask,
+};

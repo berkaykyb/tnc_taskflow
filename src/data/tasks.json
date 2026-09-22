@@ -23,7 +23,7 @@
     "id": 3,
     "title": "Add JWT authentication",
     "description": "Implement JWT token generation and validation.",
-    "status": "in-progress",
+    "status": "done",
     "priority": "high",
     "assignee": "Berkay",
     "createdAt": "2026-08-22T11:00:00.000Z",
@@ -508,17 +508,5 @@
     "assignee": "Berkay",
     "dueDate": "2026-10-01T18:00:00.000Z",
     "createdAt": "2026-09-22T11:13:19.499Z"
-  },
-  {
-    "id": 52,
-    "title": "log testi",
-    "priority": "low",
-    "createdAt": "2026-09-22T11:15:08.190Z"
-  },
-  {
-    "id": 53,
-    "title": "log testi",
-    "priority": "low",
-    "createdAt": "2026-09-22T11:15:17.557Z"
   }
 ]

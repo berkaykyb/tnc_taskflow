@@ -25,4 +25,23 @@ const getTaskById = async (req, res, next) => {
   }
 };
 
-module.exports = { getAllTasks, getTaskById };
+const createTask = async (req, res, next) => {
+  try {
+    const { title, description, status, priority, assignee, dueDate } =
+      req.body;
+    const newTask = await taskService.createTask({
+      title,
+      description,
+      status,
+      priority,
+      assignee,
+      dueDate,
+    });
+
+    res.status(201).json(newTask);
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { getAllTasks, getTaskById, createTask };

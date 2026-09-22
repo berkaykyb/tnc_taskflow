@@ -38,4 +38,22 @@ const createTask = async (taskData) => {
   return newTask;
 };
 
-module.exports = { getAllTasks, getTaskById, createTask };
+const updateTask = async (id, taskData) => {
+  const tasks = await readTasks();
+  const index = tasks.findIndex((task) => task.id === id);
+  if (index === -1) {
+    return null;
+  }
+  const updatedTask = {
+    ...tasks[index],
+    ...taskData,
+    id: tasks[index].id,
+  };
+
+  tasks[index] = updatedTask;
+  await writeTasks(tasks);
+
+  return updatedTask;
+};
+
+module.exports = { getAllTasks, getTaskById, createTask, updateTask };

@@ -58,4 +58,23 @@ const updateUser = async (id, userData) => {
   return updatedUser;
 };
 
-module.exports = { getAllUsers, getUserById, createUser, updateUser };
+const deleteUser = async (id) => {
+  const users = await readUsers();
+  const index = users.findIndex((user) => user.id === id);
+  if (index === -1) {
+    return null;
+  }
+
+  const deletedUser = users[index];
+  users.splice(index, 1);
+  await writeUsers(users);
+  return deletedUser;
+};
+
+module.exports = {
+  getAllUsers,
+  getUserById,
+  createUser,
+  updateUser,
+  deleteUser,
+};

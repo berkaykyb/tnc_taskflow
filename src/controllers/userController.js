@@ -18,7 +18,7 @@ const getUserById = async (req, res, next) => {
         message: "User not found!",
       });
     }
-    res.status(200).json(users);
+    res.status(200).json(user);
   } catch (error) {
     next(error);
   }
@@ -37,4 +37,30 @@ const createUser = async (req, res, next) => {
   }
 };
 
-module.exports = { getAllUsers, getUserById, createUser };
+const updateUser = async (req, res, next) => {
+  try {
+    const id = Number(req.params.id);
+    const { name, email } = req.body;
+
+    const userData = {
+      name,
+      email,
+    };
+
+    Object.keys(userData).forEach(
+      (key) => userData[key] === undefined && delete userData[key],
+    );
+
+    const updatedUser = await userService.updateUser(id, userData);
+    if (!updatedUser) {
+      return res.status(404).json({
+        message: "User not found!",
+      });
+    }
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { getAllUsers, getUserById, createUser, updateUser };

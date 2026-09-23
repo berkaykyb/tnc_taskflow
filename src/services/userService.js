@@ -39,4 +39,23 @@ const createUser = async (userData) => {
   return newUser;
 };
 
-module.exports = { getAllUsers, getUserById, createUser };
+const updateUser = async (id, userData) => {
+  const users = await readUsers();
+  const index = users.findIndex((user) => user.id === id);
+  if (index === -1) {
+    return null;
+  }
+
+  const updatedUser = {
+    ...users[index],
+    ...userData,
+    id: users[index].id,
+  };
+
+  users[index] = updatedUser;
+  await writeUsers(users);
+
+  return updatedUser;
+};
+
+module.exports = { getAllUsers, getUserById, createUser, updateUser };

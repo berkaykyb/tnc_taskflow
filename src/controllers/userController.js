@@ -24,4 +24,17 @@ const getUserById = async (req, res, next) => {
   }
 };
 
-module.exports = { getAllUsers, getUserById };
+const createUser = async (req, res, next) => {
+  try {
+    const { name, email } = req.body;
+    const newUser = await userService.createUser({
+      name,
+      email,
+    });
+    res.status(201).json(newUser);
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { getAllUsers, getUserById, createUser };

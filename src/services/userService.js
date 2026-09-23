@@ -12,4 +12,11 @@ const getAllUsers = async () => {
   return await readUsers();
 };
 
-module.exports = { getAllUsers };
+const getUserById = async (id) => {
+  const users = await readUsers();
+  const user = users.find((user) => user.id === id);
+
+  return user || null;
+};
+
+module.exports = { getAllUsers, getUserById };

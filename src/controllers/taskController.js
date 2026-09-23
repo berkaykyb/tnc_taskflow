@@ -1,4 +1,3 @@
-const { param } = require("../app");
 const taskService = require("../services/taskService");
 
 const getAllTasks = async (req, res, next) => {

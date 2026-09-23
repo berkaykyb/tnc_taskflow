@@ -1,5 +1,4 @@
 const fs = require("fs").promises;
-const { read } = require("fs");
 const path = require("path");
 
 const filePath = path.join(__dirname, "../data/tasks.json");

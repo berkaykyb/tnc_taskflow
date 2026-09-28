@@ -1,5 +1,6 @@
 const fs = require("fs").promises;
 const path = require("path");
+const userService = require("./userService");
 
 const filePath = path.join(__dirname, "../data/tasks.json");
 
@@ -10,6 +11,19 @@ const readTasks = async () => {
 
 const writeTasks = async (tasks) => {
   await fs.writeFile(filePath, JSON.stringify(tasks, null, 2));
+};
+
+const ensureUserExists = async (assigneeId) => {
+  if (assigneeId === undefined || assigneeId === null) {
+    return;
+  }
+  const user = await userService.getUserById(assigneeId);
+
+  if (!user) {
+    const error = new Error("assigneeId does not match any user");
+    error.statusCode = 400;
+    throw error;
+  }
 };
 
 const getAllTasks = async () => {
@@ -24,6 +38,7 @@ const getTaskById = async (id) => {
 };
 
 const createTask = async (taskData) => {
+  await ensureUserExists(taskData.assigneeId);
   const tasks = await readTasks();
 
   const newTask = {
@@ -39,6 +54,7 @@ const createTask = async (taskData) => {
 };
 
 const updateTask = async (id, taskData) => {
+  await ensureUserExists(taskData.assigneeId);
   const tasks = await readTasks();
   const index = tasks.findIndex((task) => task.id === id);
   if (index === -1) {

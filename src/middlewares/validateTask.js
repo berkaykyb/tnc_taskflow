@@ -2,7 +2,8 @@ const VALID_STATUSES = ["todo", "in-progress", "done"];
 const VALID_PRIORITIES = ["low", "medium", "high"];
 
 const validateCreateTask = (req, res, next) => {
-  const { title, description, status, priority, assignee, dueDate } = req.body;
+  const { title, description, status, priority, assigneeId, dueDate } =
+    req.body;
   const errors = [];
 
   if (typeof title !== "string") {
@@ -23,9 +24,9 @@ const validateCreateTask = (req, res, next) => {
     }
   }
 
-  if (assignee !== undefined && assignee !== null) {
-    if (typeof assignee !== "string") {
-      errors.push("assignee must be a string");
+  if (assigneeId !== undefined && assigneeId !== null) {
+    if (!Number.isInteger(assigneeId) || assigneeId < 1) {
+      errors.push("assigneeId must be a positive integer");
     }
   }
 
@@ -45,7 +46,8 @@ const validateCreateTask = (req, res, next) => {
 };
 
 const validateUpdateTask = (req, res, next) => {
-  const { title, description, status, priority, assignee, dueDate } = req.body;
+  const { title, description, status, priority, assigneeId, dueDate } =
+    req.body;
   const errors = [];
 
   if (title !== undefined) {
@@ -68,9 +70,9 @@ const validateUpdateTask = (req, res, next) => {
     }
   }
 
-  if (assignee !== undefined && assignee !== null) {
-    if (typeof assignee !== "string") {
-      errors.push("assignee must be a non-empty string");
+  if (assigneeId !== undefined && assigneeId !== null) {
+    if (!Number.isInteger(assigneeId) || assigneeId < 1) {
+      errors.push("assigneeId must be a positive integer");
     }
   }
 

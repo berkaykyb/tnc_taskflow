@@ -1,4 +1,4 @@
-const TEXT_FIELDS = ["title", "description", "assignee"];
+const TEXT_FIELDS = ["title", "description"];
 
 const normalizeTask = (req, res, next) => {
   TEXT_FIELDS.forEach((field) => {

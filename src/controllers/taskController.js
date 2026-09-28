@@ -27,14 +27,14 @@ const getTaskById = async (req, res, next) => {
 
 const createTask = async (req, res, next) => {
   try {
-    const { title, description, status, priority, assignee, dueDate } =
+    const { title, description, status, priority, assigneeId, dueDate } =
       req.body;
     const newTask = await taskService.createTask({
       title,
       description,
       status,
       priority,
-      assignee,
+      assigneeId,
       dueDate,
     });
 
@@ -47,7 +47,7 @@ const createTask = async (req, res, next) => {
 const updateTask = async (req, res, next) => {
   try {
     const id = Number(req.params.id);
-    const { title, description, status, priority, assignee, dueDate } =
+    const { title, description, status, priority, assigneeId, dueDate } =
       req.body;
 
     const taskData = {
@@ -55,7 +55,7 @@ const updateTask = async (req, res, next) => {
       description,
       status,
       priority,
-      assignee,
+      assigneeId,
       dueDate,
     };
 

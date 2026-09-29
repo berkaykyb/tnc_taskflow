@@ -1,6 +1,8 @@
 const fs = require("fs").promises;
 const path = require("path");
 const userService = require("./userService");
+const { read } = require("fs");
+const { writer } = require("repl");
 
 const filePath = path.join(__dirname, "../data/tasks.json");
 
@@ -84,10 +86,29 @@ const deleteTask = async (id) => {
   return deletedTask;
 };
 
+const unassignTasksByUserId = async (userId) => {
+  const tasks = await readTasks();
+  let updatedCount = 0;
+
+  tasks.forEach((task) => {
+    if (task.assigneeId === userId) {
+      task.assigneeId = null;
+      updatedCount += 1;
+    }
+  });
+
+  if (updatedCount > 0) {
+    await writeTasks(tasks);
+  }
+
+  return updatedCount;
+};
+
 module.exports = {
   getAllTasks,
   getTaskById,
   createTask,
   updateTask,
   deleteTask,
+  unassignTasksByUserId,
 };

@@ -1,4 +1,5 @@
 const userService = require("../services/userService");
+const taskService = require("../services/taskService");
 
 const getAllUsers = async (req, res, next) => {
   try {
@@ -72,7 +73,11 @@ const deleteUser = async (req, res, next) => {
         message: "User not found!",
       });
     }
-    res.status(200).json(deletedUser);
+    const unassignedCount = await taskService.unassignTasksByUserId(id);
+    res.status(200).json({
+      message: `User deleted, ${unassignedCount} task(s) unassigned`,
+      user: deletedUser,
+    });
   } catch (error) {
     next(error);
   }

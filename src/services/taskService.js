@@ -28,8 +28,21 @@ const ensureUserExists = async (assigneeId) => {
   }
 };
 
-const getAllTasks = async () => {
-  return await readTasks();
+const getAllTasks = async (filters = {}) => {
+  const tasks = await readTasks();
+  const { status, priority } = filters;
+
+  let result = tasks;
+
+  if (status) {
+    result = result.filter((task) => task.status === status);
+  }
+
+  if (priority) {
+    result = result.filter((task) => task.priority === priority);
+  }
+
+  return result;
 };
 
 const getTaskById = async (id) => {

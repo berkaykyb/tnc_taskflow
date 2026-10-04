@@ -1,13 +1,19 @@
 {
   "name": "tnc_taskflow",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Görev ve proje yönetim sistemi",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js",
+    "dev": "node --watch server.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "nodejs",
+    "express",
+    "rest-api",
+    "task-management"
+  ],
+  "author": "Berkay Kayabaşı",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {

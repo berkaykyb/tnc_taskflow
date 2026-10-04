@@ -30,7 +30,7 @@ const ensureUserExists = async (assigneeId) => {
 
 const getAllTasks = async (filters = {}) => {
   const tasks = await readTasks();
-  const { status, priority, assigneeId, sort, order } = filters;
+  const { status, priority, assigneeId, sort, order, page, limit } = filters;
 
   let result = tasks;
 
@@ -60,7 +60,17 @@ const getAllTasks = async (filters = {}) => {
       return aValue.localeCompare(bValue) * direction;
     });
   }
-  return result;
+
+  const total = result.length;
+  const totalPages = Math.ceil(total / limit);
+  const startIndex = (page - 1) * limit;
+
+  const data = result.slice(startIndex, startIndex + limit);
+
+  return {
+    data,
+    pagination: { page, limit, total, totalPages },
+  };
 };
 
 const getTaskById = async (id) => {

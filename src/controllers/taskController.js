@@ -2,15 +2,21 @@ const taskService = require("../services/taskService");
 
 const getAllTasks = async (req, res, next) => {
   try {
-    const { status, priority, assigneeId, sort, order } = req.query;
-    const tasks = await taskService.getAllTasks({
+    const { status, priority, assigneeId, sort, order, page, limit } =
+      req.query;
+    const pageNumber = Math.max(1, Number(page) || 1);
+    const limitNumber = Math.min(100, Math.max(1, Number(limit) || 10));
+
+    const result = await taskService.getAllTasks({
       status,
       priority,
       assigneeId: assigneeId ? Number(assigneeId) : undefined,
       sort,
       order,
+      page: pageNumber,
+      limit: limitNumber,
     });
-    res.status(200).json(tasks);
+    res.status(200).json(result);
   } catch (error) {
     next(error);
   }

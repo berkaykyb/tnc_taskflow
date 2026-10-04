@@ -9,6 +9,7 @@ const normalizeTask = require("../middlewares/normalizeTask");
 const router = express.Router();
 
 router.get("/", taskController.getAllTasks);
+router.get("/search", taskController.searchTasks);
 router.get("/:id", taskController.getTaskById);
 router.post("/", normalizeTask, validateCreateTask, taskController.createTask);
 router.patch(

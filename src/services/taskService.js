@@ -145,6 +145,19 @@ const unassignTasksByUserId = async (userId) => {
   return updatedCount;
 };
 
+const searchTasks = async (keyword) => {
+  const tasks = await readTasks();
+  keyword = keyword.toLowerCase();
+
+  return tasks.filter((task) => {
+    const inTitle = task.title.toLowerCase().includes(keyword);
+    const inDescription = task.description
+      ? task.description.toLowerCase().includes(keyword)
+      : false;
+    return inTitle || inDescription;
+  });
+};
+
 module.exports = {
   getAllTasks,
   getTaskById,
@@ -152,4 +165,5 @@ module.exports = {
   updateTask,
   deleteTask,
   unassignTasksByUserId,
+  searchTasks,
 };

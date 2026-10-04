@@ -104,10 +104,27 @@ const deleteTask = async (req, res, next) => {
   }
 };
 
+const searchTasks = async (req, res, next) => {
+  try {
+    const keyword = req.query.keyword;
+    if (!keyword) {
+      return res.status(400).json({
+        message: "Keyword query parameter is required!",
+      });
+    }
+
+    const searchedTasks = await taskService.searchTasks(keyword);
+    res.status(200).json(searchedTasks);
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   getAllTasks,
   getTaskById,
   createTask,
   updateTask,
   deleteTask,
+  searchTasks,
 };

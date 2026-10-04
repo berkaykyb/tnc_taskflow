@@ -1,8 +1,8 @@
+const VALID_SORT_FIELDS = ["createdAt", "dueDate"];
+
 const fs = require("fs").promises;
 const path = require("path");
 const userService = require("./userService");
-const { read } = require("fs");
-const { writer } = require("repl");
 
 const filePath = path.join(__dirname, "../data/tasks.json");
 
@@ -30,7 +30,7 @@ const ensureUserExists = async (assigneeId) => {
 
 const getAllTasks = async (filters = {}) => {
   const tasks = await readTasks();
-  const { status, priority, assigneeId } = filters;
+  const { status, priority, assigneeId, sort, order } = filters;
 
   let result = tasks;
 
@@ -44,6 +44,21 @@ const getAllTasks = async (filters = {}) => {
 
   if (assigneeId) {
     result = result.filter((task) => task.assigneeId === assigneeId);
+  }
+
+  if (sort && VALID_SORT_FIELDS.includes(sort)) {
+    const direction = order === "desc" ? -1 : 1;
+
+    result = [...result].sort((a, b) => {
+      const aValue = a[sort];
+      const bValue = b[sort];
+
+      if (aValue === null && bValue === null) return 0;
+      if (aValue === null) return 1;
+      if (bValue === null) return -1;
+
+      return aValue.localeCompare(bValue) * direction;
+    });
   }
   return result;
 };

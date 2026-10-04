@@ -2,11 +2,13 @@ const taskService = require("../services/taskService");
 
 const getAllTasks = async (req, res, next) => {
   try {
-    const { status, priority, assigneeId } = req.query;
+    const { status, priority, assigneeId, sort, order } = req.query;
     const tasks = await taskService.getAllTasks({
       status,
       priority,
       assigneeId: assigneeId ? Number(assigneeId) : undefined,
+      sort,
+      order,
     });
     res.status(200).json(tasks);
   } catch (error) {

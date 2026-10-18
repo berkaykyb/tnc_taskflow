@@ -1,0 +1,815 @@
+{
+  "info": {
+    "name": "TaskFlow API",
+    "description": "Görev ve kullanıcı uçları. Her klasörde istekleri yukarıdan aşağı çalıştır. Görev ve kullanıcı kimlikleri ekleme isteğinin yanıtından otomatik alınır. Testler yalnızca oluşturdukları kayıtları günceller ve siler.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://127.0.0.1:3000",
+      "type": "string"
+    },
+    {
+      "key": "taskId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "userId",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "01 Görevler",
+      "item": [
+        {
+          "name": "01 Görev ekle",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/tasks",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"API teslim kontrolü\",\n  \"description\": \"Görev uçları Postman ile kontrol edilecek.\",\n  \"status\": \"todo\",\n  \"priority\": \"high\",\n  \"assigneeId\": 1,\n  \"dueDate\": \"2026-10-25T12:00:00.000Z\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 201\", function () { pm.response.to.have.status(201); });",
+                  "pm.test(\"JSON yanıt\", function () { pm.response.to.be.json; });",
+                  "if (pm.response.code === 201) pm.collectionVariables.set(\"taskId\", pm.response.json().id);",
+                  "pm.test(\"Görev alanları\", function () { const task = pm.response.json(); pm.expect(task.title).to.eql(\"API teslim kontrolü\"); pm.expect(task.status).to.eql(\"todo\"); pm.expect(task.id).to.be.a(\"number\"); });"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "02 Görevleri listele",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/tasks?page=1&limit=3"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"JSON yanıt\", function () { pm.response.to.be.json; });",
+                  "pm.test(\"Sayfalı görev listesi\", function () { const result = pm.response.json(); pm.expect(result.data).to.be.an(\"array\"); pm.expect(result.pagination).to.have.keys(\"page\", \"limit\", \"total\", \"totalPages\"); });"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "03 Görev detayı",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/tasks/{{taskId}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"JSON yanıt\", function () { pm.response.to.be.json; });",
+                  "pm.test(\"Kayıt kimliği\", function () { pm.expect(pm.response.json().id).to.eql(Number(pm.collectionVariables.get(\"taskId\"))); });"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "04 Görevi güncelle",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/tasks/{{taskId}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"API kontrolü tamamlandı\",\n  \"status\": \"done\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"JSON yanıt\", function () { pm.response.to.be.json; });",
+                  "pm.test(\"Kayıt kimliği\", function () { pm.expect(pm.response.json().id).to.eql(Number(pm.collectionVariables.get(\"taskId\"))); });",
+                  "pm.test(\"Durum güncellendi\", function () { pm.expect(pm.response.json().status).to.eql(\"done\"); });"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "05 PUT ile güncelle",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/tasks/{{taskId}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"description\": \"Temel API kontrolleri tamamlandı.\",\n  \"priority\": \"medium\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"JSON yanıt\", function () { pm.response.to.be.json; });",
+                  "pm.test(\"Kayıt kimliği\", function () { pm.expect(pm.response.json().id).to.eql(Number(pm.collectionVariables.get(\"taskId\"))); });"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "06 Görevi sil",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{baseUrl}}/tasks/{{taskId}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"JSON yanıt\", function () { pm.response.to.be.json; });",
+                  "pm.test(\"Kayıt kimliği\", function () { pm.expect(pm.response.json().id).to.eql(Number(pm.collectionVariables.get(\"taskId\"))); });"
+                ]
+              }
+            }
+          ],
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "02 Kullanıcılar",
+      "item": [
+        {
+          "name": "01 Kullanıcı ekle",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/users",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Deneme Kullanıcı\",\n  \"email\": \"deneme@example.com\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 201\", function () { pm.response.to.have.status(201); });",
+                  "pm.test(\"JSON yanıt\", function () { pm.response.to.be.json; });",
+                  "if (pm.response.code === 201) pm.collectionVariables.set(\"userId\", pm.response.json().id);"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "02 Kullanıcıları listele",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/users"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"JSON yanıt\", function () { pm.response.to.be.json; });",
+                  "pm.test(\"Kullanıcı listesi\", function () { pm.expect(pm.response.json()).to.be.an(\"array\"); });"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "03 Kullanıcı detayı",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/users/{{userId}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"JSON yanıt\", function () { pm.response.to.be.json; });",
+                  "pm.test(\"Kayıt kimliği\", function () { pm.expect(pm.response.json().id).to.eql(Number(pm.collectionVariables.get(\"userId\"))); });"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "04 Kullanıcıyı güncelle",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/users/{{userId}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Güncel Kullanıcı\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"JSON yanıt\", function () { pm.response.to.be.json; });",
+                  "pm.test(\"Kayıt kimliği\", function () { pm.expect(pm.response.json().id).to.eql(Number(pm.collectionVariables.get(\"userId\"))); });"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "05 PUT ile güncelle",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/users/{{userId}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"guncel@example.com\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"JSON yanıt\", function () { pm.response.to.be.json; });",
+                  "pm.test(\"Kayıt kimliği\", function () { pm.expect(pm.response.json().id).to.eql(Number(pm.collectionVariables.get(\"userId\"))); });"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "06 Kullanıcıyı sil",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{baseUrl}}/users/{{userId}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"JSON yanıt\", function () { pm.response.to.be.json; });",
+                  "pm.test(\"Silinen kullanıcı\", function () { pm.expect(pm.response.json().user.id).to.eql(Number(pm.collectionVariables.get(\"userId\"))); });"
+                ]
+              }
+            }
+          ],
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "03 Filtreleme ve Arama",
+      "item": [
+        {
+          "name": "01 Duruma göre",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/tasks?status=todo&limit=100"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"JSON yanıt\", function () { pm.response.to.be.json; });",
+                  "pm.test(\"Sayfalı görev listesi\", function () { const result = pm.response.json(); pm.expect(result.data).to.be.an(\"array\"); pm.expect(result.pagination).to.have.keys(\"page\", \"limit\", \"total\", \"totalPages\"); });",
+                  "pm.test(\"Durum filtresi\", function () { pm.expect(pm.response.json().data.every(task => task.status === \"todo\")).to.eql(true); });"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "02 Önceliğe göre",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/tasks?priority=high&limit=100"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"JSON yanıt\", function () { pm.response.to.be.json; });",
+                  "pm.test(\"Sayfalı görev listesi\", function () { const result = pm.response.json(); pm.expect(result.data).to.be.an(\"array\"); pm.expect(result.pagination).to.have.keys(\"page\", \"limit\", \"total\", \"totalPages\"); });",
+                  "pm.test(\"Öncelik filtresi\", function () { pm.expect(pm.response.json().data.every(task => task.priority === \"high\")).to.eql(true); });"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "03 Kullanıcıya göre",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/tasks?assigneeId=1&limit=100"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"JSON yanıt\", function () { pm.response.to.be.json; });",
+                  "pm.test(\"Sayfalı görev listesi\", function () { const result = pm.response.json(); pm.expect(result.data).to.be.an(\"array\"); pm.expect(result.pagination).to.have.keys(\"page\", \"limit\", \"total\", \"totalPages\"); });",
+                  "pm.test(\"Atama filtresi\", function () { pm.expect(pm.response.json().data.every(task => task.assigneeId === 1)).to.eql(true); });"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "04 Birlikte filtrele",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/tasks?status=done&priority=high&assigneeId=1&limit=100"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"JSON yanıt\", function () { pm.response.to.be.json; });",
+                  "pm.test(\"Sayfalı görev listesi\", function () { const result = pm.response.json(); pm.expect(result.data).to.be.an(\"array\"); pm.expect(result.pagination).to.have.keys(\"page\", \"limit\", \"total\", \"totalPages\"); });"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "05 Yeni görevleri sırala",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/tasks?sort=createdAt&order=desc&limit=100"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"JSON yanıt\", function () { pm.response.to.be.json; });",
+                  "pm.test(\"Sayfalı görev listesi\", function () { const result = pm.response.json(); pm.expect(result.data).to.be.an(\"array\"); pm.expect(result.pagination).to.have.keys(\"page\", \"limit\", \"total\", \"totalPages\"); });",
+                  "pm.test(\"Tarih sıralaması\", function () { const dates = pm.response.json().data.map(task => task.createdAt); pm.expect(dates).to.eql([...dates].sort().reverse()); });"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "06 Son tarihe göre sırala",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/tasks?sort=dueDate&order=asc&limit=100"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"JSON yanıt\", function () { pm.response.to.be.json; });",
+                  "pm.test(\"Sayfalı görev listesi\", function () { const result = pm.response.json(); pm.expect(result.data).to.be.an(\"array\"); pm.expect(result.pagination).to.have.keys(\"page\", \"limit\", \"total\", \"totalPages\"); });"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "07 İkinci sayfa",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/tasks?page=2&limit=5"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"JSON yanıt\", function () { pm.response.to.be.json; });",
+                  "pm.test(\"Sayfalı görev listesi\", function () { const result = pm.response.json(); pm.expect(result.data).to.be.an(\"array\"); pm.expect(result.pagination).to.have.keys(\"page\", \"limit\", \"total\", \"totalPages\"); });",
+                  "pm.test(\"Sayfa bilgisi\", function () { pm.expect(pm.response.json().pagination.page).to.eql(2); pm.expect(pm.response.json().pagination.limit).to.eql(5); });"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "08 Anahtar kelime ara",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/tasks/search?keyword=api"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"JSON yanıt\", function () { pm.response.to.be.json; });",
+                  "pm.test(\"Arama sonuçları\", function () { const tasks = pm.response.json(); pm.expect(tasks).to.be.an(\"array\"); pm.expect(tasks.every(task => (task.title + \" \" + (task.description || \"\")).toLowerCase().includes(\"api\"))).to.eql(true); });"
+                ]
+              }
+            }
+          ],
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "04 Hata Kontrolleri",
+      "item": [
+        {
+          "name": "01 Olmayan görev",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/tasks/2147483647"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 404\", function () { pm.response.to.have.status(404); });",
+                  "pm.test(\"JSON yanıt\", function () { pm.response.to.be.json; });"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "02 Eksik başlık",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/tasks",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"todo\",\n  \"priority\": \"low\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 400\", function () { pm.response.to.have.status(400); });",
+                  "pm.test(\"JSON yanıt\", function () { pm.response.to.be.json; });"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "03 Boş başlık",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/tasks",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"   \",\n  \"status\": \"todo\",\n  \"priority\": \"low\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 400\", function () { pm.response.to.have.status(400); });",
+                  "pm.test(\"JSON yanıt\", function () { pm.response.to.be.json; });"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "04 Geçersiz durum",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/tasks",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Deneme\",\n  \"status\": \"invalid\",\n  \"priority\": \"low\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 400\", function () { pm.response.to.have.status(400); });",
+                  "pm.test(\"JSON yanıt\", function () { pm.response.to.be.json; });"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "05 Olmayan kullanıcıya atama",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/tasks",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Deneme\",\n  \"status\": \"todo\",\n  \"priority\": \"low\",\n  \"assigneeId\": 2147483647\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 400\", function () { pm.response.to.have.status(400); });",
+                  "pm.test(\"JSON yanıt\", function () { pm.response.to.be.json; });"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "06 Geçersiz e-posta",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/users",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Deneme\",\n  \"email\": \"invalid\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 400\", function () { pm.response.to.have.status(400); });",
+                  "pm.test(\"JSON yanıt\", function () { pm.response.to.be.json; });"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "07 Arama kelimesi eksik",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/tasks/search"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 400\", function () { pm.response.to.have.status(400); });",
+                  "pm.test(\"JSON yanıt\", function () { pm.response.to.be.json; });"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "08 Olmayan adres",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/missing-route"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 404\", function () { pm.response.to.have.status(404); });",
+                  "pm.test(\"JSON yanıt\", function () { pm.response.to.be.json; });"
+                ]
+              }
+            }
+          ],
+          "response": []
+        }
+      ]
+    }
+  ]
+}
